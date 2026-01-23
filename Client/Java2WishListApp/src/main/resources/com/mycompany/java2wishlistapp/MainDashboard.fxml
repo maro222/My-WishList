@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainBorderPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.java2wishlistapp.DashboardController">
+   
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #2D3447;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="i-Wish" textFill="#a0a2ab">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="40.0" top="30.0" />
+               </VBox.margin>
+               <effect>
+                  <javafx.scene.effect.Glow level="0.5" />
+               </effect>
+            </Label>
+            
+            <Button fx:id="btnProfile" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleShowProfile" prefHeight="50.0" prefWidth="250.0" styleClass="sidebar-btn" stylesheets="@styles.css" text="My Profile">
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </Button>
+            
+            <Button fx:id="btnMyWishlist" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleShowMyWishlist" prefHeight="50.0" prefWidth="250.0" styleClass="sidebar-btn" stylesheets="@styles.css" text="My Wishlist">
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </Button>
+            
+            <Button fx:id="btnFriends" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleShowFriends" prefHeight="50.0" prefWidth="250.0" styleClass="sidebar-btn" stylesheets="@styles.css" text="Friends">
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </Button>
+            
+            <Button fx:id="btnRequests" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleShowRequests" prefHeight="50.0" prefWidth="250.0" styleClass="sidebar-btn" stylesheets="@styles.css" text="Friend Requests">
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </Button>
+            
+            <VBox VBox.vgrow="ALWAYS" />
+            
+            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogout" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #ff5e5e; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold; -fx-cursor: hand;" text="Sign Out">
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+               <effect>
+                  <javafx.scene.effect.DropShadow color="#00000033" height="10.0" radius="4.5" width="10.0" />
+               </effect>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="900.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblPageTitle" text="Dashboard" textFill="#2d3447">
+               <font>
+                  <Font name="Segoe UI Bold" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin>
+            </Label>
+            
+            <HBox HBox.hgrow="ALWAYS" />
+            
+            <HBox alignment="CENTER_RIGHT" spacing="20.0">
+               <children>
+                  
+                  <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" style="-fx-background-color: #e3f2fd; -fx-background-radius: 20;">
+                     <children>
+                        <Label text="\$ 1,250.00" textFill="#4facfe">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                  </HBox>
+                  
+                  <Button mnemonicParsing="false" onAction="#handleShowNotifications" style="-fx-background-color: transparent; -fx-cursor: hand;" text="🔔" textFill="#a0a2ab">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label fx:id="user_name" text="John Doe" textFill="#2d3447">
+                           <font>
+                              <Font name="Segoe UI Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <javafx.scene.shape.Circle fill="DODGERBLUE" radius="18.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+                     </children>
+                  </HBox>
+                  
+               </children>
+               <padding>
+                  <Insets right="25.0" />
+               </padding>
+            </HBox>
+         </children>
+         
+         <effect>
+            <javafx.scene.effect.DropShadow color="#0000001a" height="15.0" radius="5.0" width="15.0" />
+         </effect>
+      </HBox>
+   </top>
+
+   <center>
+      <VBox fx:id="contentArea" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #f4f4f4;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Select an option from the menu" textFill="#9a9a9a">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </center>
+   
+</BorderPane>

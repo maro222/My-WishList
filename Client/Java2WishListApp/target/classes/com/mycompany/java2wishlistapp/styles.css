@@ -1,0 +1,144 @@
+ 
+/* Card Container */
+.profile-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+/* The Top Banner Gradient */
+.profile-banner {
+    -fx-background-color: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    -fx-background-radius: 20 20 0 0; /* Top corners rounded only */
+}
+
+/* Input Fields */
+.profile-field {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+}
+.profile-field:focused {
+    -fx-border-color: #4facfe;
+    -fx-background-color: #ffffff;
+}
+
+/* Primary Button (Save) */
+.btn-primary {
+    -fx-background-color: #2D3447;
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+.btn-primary:hover {
+    -fx-background-color: #4facfe;
+}
+
+/* Secondary Button (Add Credit) */
+.btn-secondary {
+    -fx-background-color: white;
+    -fx-text-fill: #2D3447;
+    -fx-border-color: #2D3447;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+}
+.btn-secondary:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+.item-card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 0);
+}
+
+.item-card:hover {
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+     -fx-cursor: hand;
+}
+
+.friend-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-border-color: #f0f0f0;
+    -fx-border-radius: 10;
+}
+
+.friend-card:hover {
+     -fx-effect: dropshadow(three-pass-box, rgba(79, 172, 254, 0.4), 10, 0, 0, 0);
+}
+
+.request-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 5, 0, 0, 0);
+}
+
+/* Sidebar Gradient */
+.login-sidebar {
+    -fx-background-color: linear-gradient(to bottom right, #2D3447, #1e2536);
+}
+
+/* Make Tabs look cleaner */
+.login-tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.login-tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-text-base-color: #a0a0a0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.login-tab-pane .tab:selected {
+    -fx-text-base-color: #2D3447; /* Active tab color */
+    -fx-border-color: #2D3447;
+    -fx-border-width: 0 0 2 0; /* Underline effect */
+}
+
+.login-tab-pane .tab:hover {
+    -fx-cursor: hand;
+}
+
+.notification-card {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-color: #f0f0f0;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 3, 0, 0, 1);
+}
+
+.notification-card:hover {
+    -fx-background-color: #fafafa;
+}
+
+/* Base Style for Sidebar Buttons */
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #a0a2ab;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-border-width: 0 0 0 0; /* No border by default */
+    -fx-background-insets: 0;
+}
+
+/* Hover State: When mouse is over the button */
+.sidebar-btn:hover {
+    -fx-background-color: #3C4459; /* Slightly lighter background */
+    -fx-text-fill: white;           /* Bright white text */
+    -fx-border-color: #4facfe;      /* Blue accent color */
+    -fx-border-width: 0 0 0 4;      /* Add a 4px strip on the left */
+}
+
+/* Pressed State: When user clicks */
+.sidebar-btn:pressed {
+    -fx-background-color: #2b3040;
+    -fx-text-fill: #4facfe;
+}
