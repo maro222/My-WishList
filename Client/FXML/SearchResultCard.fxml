@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="180.0" prefWidth="160.0" styleClass="friend-card" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.java2wishlistapp.SearchResultCardController">
+   <children>
+      <VBox alignment="CENTER" layoutX="30.0" layoutY="-10.0" prefHeight="180.0" prefWidth="160.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Circle fx:id="imgAvatar" fill="DODGERBLUE" radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+            
+            <VBox alignment="CENTER" spacing="2.0">
+               <children>
+                  <Label fx:id="lblName" text="User Name" textFill="#2d3447">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblEmail" text="user@email.com" textFill="#909090">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#handleAddFriend" prefWidth="110.0" style="-fx-background-color: #4facfe; -fx-text-fill: white; -fx-background-radius: 20; -fx-cursor: hand;" text="Add Friend">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
