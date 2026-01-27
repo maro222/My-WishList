@@ -1,20 +1,16 @@
 package com.mycompany.dao;
 
+import com.mycompany.db.DatabaseHandler;
 import com.mycompany.model.User;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
-
-    private Connection getConnection() throws SQLException {
-        // Adjust DB URL, user, password
-        return DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/iwishdb", "root", "password"
-        );
-    }
-
+    
     public boolean register(User user) {
         String sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseHandler.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             
             ps.setString(1, user.getUsername());
@@ -27,10 +23,10 @@ public class UserDAO {
             return false;
         }
     }
-
+    
     public User login(String username, String password) {
         String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseHandler.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             
             ps.setString(1, username);
@@ -49,5 +45,54 @@ public class UserDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    /**
+     * Search users by username or email
+     * Username must START with the query (query%)
+     * Email can contain the query anywhere (%query%)
+     * @param query Search query (username or email)
+     * @return List of users matching the query
+     */
+    public List<User> searchUsers(String query) {
+        System.out.println("=== searchUsers with query: " + query + " ===");
+        
+        List<User> users = new ArrayList<>();
+        // Username starts with query, email contains query
+        String sql = "SELECT id, username, email FROM users WHERE username LIKE ? LIMIT 10";
+        
+        try (Connection conn = DatabaseHandler.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            String usernamePattern = query + "%";  // Username starts with query
+            
+            
+            ps.setString(1, usernamePattern);
+          
+            
+            System.out.println("Username pattern: " + usernamePattern);
+         
+            ResultSet rs = ps.executeQuery();
+            
+            int count = 0;
+            while (rs.next()) {
+                count++;
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                users.add(user);
+                
+                System.out.println("Found user " + count + ": " + user.getUsername() + " (" + user.getEmail() + ")");
+            }
+            
+            System.out.println("Total users found: " + count);
+            
+        } catch (SQLException e) {
+            System.out.println("SQL ERROR in searchUsers:");
+            e.printStackTrace();
+        }
+        
+        return users;
     }
 }
