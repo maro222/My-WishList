@@ -70,7 +70,7 @@ public class NewItemController {
             String[] itemDetails = {name, priceText, userId};
             Request request = new Request("INSERT_NEW_WISH", itemDetails);
             
-            // Send request in a background thread
+            
             new Thread(() -> {
                 try {
                     client.send(request);

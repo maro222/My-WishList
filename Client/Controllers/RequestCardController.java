@@ -49,7 +49,6 @@ public class RequestCardController {
 
                 Platform.runLater(() -> {
                     if (res != null && res.isSuccess()) {
-                        // REFRESH PARENT
                         if(parent != null) parent.loadRequests();
                     }
                 });

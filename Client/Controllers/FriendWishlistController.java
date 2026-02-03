@@ -21,13 +21,11 @@ public class FriendWishlistController {
     private List<WishlistItem> wishlistItems;
     private int friendId;
     
-    // This method is called by the Previous Controller (FriendCardController)
     public void setFriendInfo(String name) {
         lblFriendName.setText(name + "'s Wishlist");
         System.out.println("Friend name set to: " + name);
     }
     
-    // New method to receive wishlist data
     public void setWishlistData(List<WishlistItem> items, int friendId) {
         this.wishlistItems = items;
         this.friendId = friendId;
@@ -79,14 +77,12 @@ public class FriendWishlistController {
                 
                 FriendItemCardController controller = fxmlLoader.getController();
                 
-                // Pass real data using the correct getter methods
                 controller.setData(
                     item.getName(),              // Item name
                     item.getTotalPrice(),        // Target/Total price
                     item.getCollectedAmount()    // Amount collected so far
                 );
                 
-                // Pass the wishlist item ID for contributions
                 controller.setWishlistItemId(item.getId());
                 
                 gridPane.add(anchorPane, column, row);
@@ -112,12 +108,10 @@ public class FriendWishlistController {
     
     @FXML
     private void handleBack(ActionEvent event) {
-        // Logic to go BACK to Friends List
         try {
              FXMLLoader loader = new FXMLLoader(getClass().getResource("FriendsList.fxml"));
              Parent root = loader.load();
              
-             // Look up the Main Dashboard BorderPane to swap the center content
              BorderPane mainLayout = (BorderPane) ((Node) event.getSource()).getScene().lookup("#mainBorderPane");
              if (mainLayout != null) {
                  mainLayout.setCenter(root);

@@ -69,13 +69,11 @@ public class FriendItemCardController {
             try {
                 double amount = Double.parseDouble(amountStr);
                 
-                // 1. Client Side Validation
                 if (amount <= 0) {
                     showAlert("Invalid Amount", "Amount must be positive.");
                     return;
                 }
                 
-                // 2. Get Network Client
                 TestClient client = App.getClient();
                 if (client == null || client.getUser() == null) {
                     showAlert("Error", "Not connected to server.");
@@ -87,23 +85,18 @@ public class FriendItemCardController {
                 int myId = client.getUser().getId();
                 Contribution contribution = new Contribution(0, myId, this.wishlistItemId, amount);
 
-                // 4. Send Request
                 Request req = new Request("CONTRIBUTE", contribution);
                 client.send(req);
 
-                // 5. Wait for Response (Basic blocking approach)
-                Thread.sleep(500); // Give server time to process
+                Thread.sleep(500); 
                 Response res = client.getCurrentresponse();
 
-                // 6. Handle Result
                 if (res != null && res.isSuccess()) {
                     showAlert("Success", "Contribution successful!");
                     
-                    // Update UI immediately (simulated)
                     this.collectedAmount += amount;
                     lblCollected.setText("$ " + this.collectedAmount);
                     
-                    // Update Progress
                     double newProgress = this.collectedAmount / this.totalAmount;
                     progressBar.setProgress(newProgress);
                     

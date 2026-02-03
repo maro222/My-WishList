@@ -77,7 +77,7 @@ public class TestClient extends Thread{
         return currentresponse;
     }
 
-    public void send(Request request) throws Exception {     //specific button that should be implemented for others
+    public void send(Request request) throws Exception {     
         
         // Send the request object
         out.writeObject(request);

@@ -47,7 +47,6 @@ public class LoginController {
         Request request = new Request("LOGIN", new User(user, "", pass));
         TestClient client = App.getClient();
         
-        // 2. RUN IN BACKGROUND THREAD
         new Thread(() -> {
             try {
                 // Clear old response
@@ -66,11 +65,8 @@ public class LoginController {
                 
                 Response response = client.getCurrentresponse();
 
-                // 4. GO BACK TO UI THREAD TO UPDATE SCREEN
                 javafx.application.Platform.runLater(() -> {
-                    // Re-enable button
-                    // btnLogin.setDisable(false);
-                    // btnLogin.setText("Login");
+
 
                     if (response != null && response.isSuccess()) {
                         System.out.println("Login Successful!");
@@ -84,18 +80,16 @@ public class LoginController {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        }).start(); // Start the thread immediately
+        }).start(); 
     }
 
 
         @FXML
     private void handleRegister(ActionEvent event) {
-        // 1. Get Data
         String user = txtRegUser.getText();
         String email = txtRegEmail.getText();
         String pass = txtRegPass.getText();
         
-        // 2. Validate
         if (user.isEmpty() || email.isEmpty() || pass.isEmpty()) {
              showAlert("Error", "All fields are required.");
              return;
@@ -104,17 +98,12 @@ public class LoginController {
         Request request = new Request("REGISTER", new User(user, email, pass));
         TestClient client = App.getClient();
         
-        // 3. Run in Background Thread (Fixes freezing)
         new Thread(() -> {
             try {
-                // Clear previous response
                 client.currentresponse = null;
                 
-                // Send Request
                 client.send(request);
                 
-                // 4. Smart Wait (Polling)
-                // Checks every 100ms. Max wait: 2 seconds (20 * 100).
                 int timeout = 20; 
                 while (client.getCurrentresponse() == null && timeout > 0) {
                     Thread.sleep(100); 
@@ -123,7 +112,6 @@ public class LoginController {
                 
                 Response response = client.getCurrentresponse();
                 
-                // 5. Update UI on JavaFX Thread
                 javafx.application.Platform.runLater(() -> {
                     
                     if (response != null && response.isSuccess()) {
@@ -134,12 +122,10 @@ public class LoginController {
                         txtRegPass.clear();
                         txtRegUser.clear();
                         
-                        // Switch to Login Tab
                         if (mainTabPane != null && loginTab != null) {
                             mainTabPane.getSelectionModel().select(loginTab);
                         }
                     } else {
-                        // Handle Error
                         String errorMsg = (response != null) ? response.getMessage() : "Server timeout.";
                         showAlert("Registration Failed", errorMsg);
                     }
@@ -155,13 +141,11 @@ public class LoginController {
     
     private void openDashboard(ActionEvent event) {
         try {
-            // Load the Dashboard FXML
             Parent root = FXMLLoader.load(getClass().getResource("MainDashboard.fxml"));
             
             // Get the current stage (window) from the button that was clicked
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             
-            // Set the new scene
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.centerOnScreen(); // Centers the window on the screen

@@ -23,12 +23,11 @@ public class FriendRequestsController implements Initializable {
         loadRequests();
     }
 
-    // Public method to load/reload requests
     public void loadRequests() {
         new Thread(() -> {
             try {
                 TestClient client = App.getClient();
-                client.currentresponse = null; // Clear old
+                client.currentresponse = null;
                 
                 Request request = new Request("GET_REQUEST_LIST", client.getUser());
                 client.send(request);
@@ -64,7 +63,7 @@ public class FriendRequestsController implements Initializable {
                 RequestCardController controller = fxmlLoader.getController();
                 controller.setData(user.getUsername(), user.getId());
                 
-                // *** PASS THIS CONTROLLER ***
+                // PASS THIS CONTROLLER 
                 controller.setParentController(this);
 
                 requestsList.getChildren().add(card);

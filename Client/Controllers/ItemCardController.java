@@ -19,10 +19,8 @@ public class ItemCardController {
     
     private int wishID; 
     
-    // NEW: A reference to the WishlistController that created this card.
     private WishlistController parentController;
 
-    // Method to set data for this specific card
     public void setData(String name, double price, double collected, int itemID) {
         lblName.setText(name);
         lblPrice.setText(String.format("$%.2f", price)); // Use String.format for better currency display
@@ -41,7 +39,6 @@ public class ItemCardController {
         this.wishID = itemID; 
     }
     
-    // NEW: This method allows the WishlistController to give this card a way to communicate back.
     public void setParentController(WishlistController parentController) {
         this.parentController = parentController;
     }
@@ -53,14 +50,11 @@ public class ItemCardController {
             try {
                 TestClient client = App.getClient();
                 Request request = new Request("DELETE_WISH", this.wishID);
-                // Use a method that sends and waits for a response
                 client.send(request); 
                 Response response = client.getCurrentresponse();
-                // Switch back to the JavaFX Application Thread to update the UI
                 Platform.runLater(() -> {
                     if (response != null && response.isSuccess()) {
                         System.out.println("Item deleted successfully from DB.");
-                        // THE FIX: If the parent controller is set, tell it to refresh.
                         if (parentController != null) {
                             parentController.loadWishlistItems();
                         }

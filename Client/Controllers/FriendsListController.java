@@ -24,7 +24,6 @@ public class FriendsListController implements Initializable {
         loadFriends();
     }
     
-    // PUBLIC so the Child Card can call it to refresh the list
     public void loadFriends() {
         // Run in background thread to prevent UI freezing
         new Thread(() -> {
@@ -37,10 +36,8 @@ public class FriendsListController implements Initializable {
                 
                 int userId = client.getUser().getId();
                 
-                // 1. Clear previous response
                 client.currentresponse = null;
                 
-                // 2. Send Request
                 Request request = new Request("GET_FRIENDS", userId);
                 client.send(request);
                 
@@ -53,7 +50,6 @@ public class FriendsListController implements Initializable {
                 
                 Response response = client.getCurrentresponse();
                 
-                // 4. Update UI on JavaFX Thread
                 Platform.runLater(() -> {
                     if (response == null || !response.isSuccess()) {
                         System.out.println("Failed to load friends or timeout");
@@ -82,7 +78,6 @@ public class FriendsListController implements Initializable {
                 
                 FriendCardController controller = loader.getController();
                 
-                // Pass Data
                 controller.setData(
                         friend.getUsername(),
                         friend.getEmail(),
@@ -94,7 +89,7 @@ public class FriendsListController implements Initializable {
                 
                 friendsGrid.add(pane, column, row);
                 column++;
-                if (column == 2) { // Assuming 2 columns per row
+                if (column == 2) { 
                     column = 0;
                     row++;
                 }

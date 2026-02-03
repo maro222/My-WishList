@@ -156,7 +156,6 @@ public class DashboardController implements Initializable {
             
             if (users == null || users.isEmpty()) {
                 System.out.println("No users found matching: " + query);
-                // Show "No results" message
                 Label noResults = new Label("No users found");
                 noResults.setStyle("-fx-font-size: 16px; -fx-text-fill: gray;");
                 resultsContainer.getChildren().add(noResults);
@@ -164,16 +163,13 @@ public class DashboardController implements Initializable {
                 return;
             }
             
-            // Get current user ID to exclude from results
             int currentUserId = client.getUser().getId();
             System.out.println("Current user ID: " + currentUserId);
             
-            // Display results
             int cardsDisplayed = 0;
             for (User user : users) {
                 System.out.println("Processing user: " + user.getUsername() + " (ID: " + user.getId() + ")");
                 
-                // Don't show current user in results
                 if (user.getId() == currentUserId) {
                     System.out.println("Skipping current user");
                     continue;
@@ -213,22 +209,19 @@ public class DashboardController implements Initializable {
             TestClient client = App.getClient();
             if (client == null || client.getUser() == null) return;
 
-            // 1. Send the "Check" request
             Request req = new Request("CHECK_UNREAD", client.getUser().getId());
             client.send(req);
 
-            // 2. Wait for response
-            Thread.sleep(200); // Short wait is fine here
+            Thread.sleep(200);
             Response res = client.getCurrentresponse();
 
             if (res != null && res.isSuccess()) {
                 boolean hasUnread = (boolean) res.getData();
 
                 if (hasUnread) {
-                    // STYLE 1: Turn the icon/text Red
                     btnNotifications.setStyle("-fx-text-fill: red; -fx-background-color: transparent;");
                     
-                    // OR STYLE 2: If using an ImageView inside the button, swap the image
+                    
                     // ImageView view = (ImageView) btnNotifications.getGraphic();
                     // view.setImage(new Image(getClass().getResourceAsStream("/images/bell_red.png")));
                 } else {

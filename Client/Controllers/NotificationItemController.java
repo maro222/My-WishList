@@ -18,7 +18,6 @@ public class NotificationItemController {
         lblMessage.setText(message);
         lblTime.setText(time);
         
-        // Dynamic styling based on notification type
         if (isSuccess) {
             // Green for money/gifts
             iconContainer.setStyle("-fx-background-color: #4cd137; -fx-background-radius: 5;"); 

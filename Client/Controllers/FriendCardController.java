@@ -28,7 +28,6 @@ public class FriendCardController {
     // Reference to the Parent List
     private FriendsListController parentController;
     
-    // Setter for Parent
     public void setParentController(FriendsListController parent) {
         this.parentController = parent;
     }
@@ -38,12 +37,10 @@ public class FriendCardController {
         lblFriendName.setText(name);
         lblEmail.setText(email);
         
-        // Set placeholder image
         try {
             Image im = new Image(getClass().getResourceAsStream("/images/profile_placeholder.png"));
             friendCircle.setFill(new ImagePattern(im));
         } catch (Exception e) { 
-            // Ignore if image missing
         }
     }
     
@@ -71,14 +68,11 @@ public class FriendCardController {
                 int userId = client.getUser().getId();
                 int[] unfriendData = new int[]{userId, friendId};
                 
-                // 1. Clear old
                 client.currentresponse = null;
                 
-                // 2. Send
                 Request request = new Request("REMOVE_FRIEND", unfriendData);
                 client.send(request);
                 
-                // 3. Smart Wait
                 int timeout = 20;
                 while (client.getCurrentresponse() == null && timeout > 0) {
                     Thread.sleep(100);
@@ -87,12 +81,10 @@ public class FriendCardController {
                 
                 Response response = client.getCurrentresponse();
                 
-                // 4. Update UI
                 Platform.runLater(() -> {
                     if (response != null && response.isSuccess()) {
                         showAlert("Success", "Friend removed successfully.");
                         
-                        // *** REFRESH THE PARENT LIST ***
                         if (parentController != null) {
                             parentController.loadFriends();
                         }
@@ -109,8 +101,7 @@ public class FriendCardController {
 
     @FXML
     private void handleViewWishes(javafx.event.ActionEvent event) {
-        // Also wrapping this in a thread is good practice, though strictly navigation
-        // depends on the fetch. Here is the threaded version:
+
         
         new Thread(() -> {
             try {

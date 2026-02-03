@@ -36,14 +36,11 @@ public class WishlistController implements Initializable {
                 TestClient client = App.getClient();
                 if (client == null) return;
 
-                // 1. Clear old data
                 client.currentresponse = null;
 
-                // 2. Send Request
                 Request request = new Request("GET_USER_WISHLIST", client.getUser());
                 client.send(request);
                 
-                // 3. SMART WAIT (Polling)
                 int timeout = 20; // Wait max 2 seconds
                 while (client.getCurrentresponse() == null && timeout > 0) {
                     Thread.sleep(100);
@@ -52,7 +49,6 @@ public class WishlistController implements Initializable {
                 
                 Response response = client.getCurrentresponse();
                 
-                // 4. Update UI
                 Platform.runLater(() -> {
                     if (response != null && response.isSuccess()) {
                         List<WishlistItem> list = (List<WishlistItem>) response.getData();
@@ -71,7 +67,6 @@ public class WishlistController implements Initializable {
         gridPane.getChildren().clear(); 
         if (list == null || list.isEmpty()) {
             System.out.println("Wishlist is empty or server returned null data.");
-            // Optional: You could add a Label here saying "No items found"
             return; 
         }
                 
@@ -120,7 +115,7 @@ public class WishlistController implements Initializable {
             stage.showAndWait(); 
             
             if (newItemController.isItemAddedSuccessfully()) {
-                loadWishlistItems(); // Refresh!
+                loadWishlistItems(); 
             }
 
         } catch (IOException e) {

@@ -29,16 +29,13 @@ public class NotificationsController implements Initializable {
             TestClient client = App.getClient();
             if (client == null || client.getUser() == null) return;
 
-            // 1. Send Request
-            // We send the user ID so the server knows whose notifications to fetch
+
             Request req = new Request("GET_NOTIFICATIONS", client.getUser().getId());
             client.send(req);
             
-            // 2. Wait for Response
             Thread.sleep(1000); 
             Response res = client.getCurrentresponse();
             
-            // 3. Process Data
             if (res != null && res.isSuccess()) {
                 List<Notification> notifs = (List<Notification>) res.getData();
                 
@@ -46,7 +43,6 @@ public class NotificationsController implements Initializable {
                 
                 if (notifs != null) {
                     for (Notification n : notifs) {
-                        // For contributions, we treat them as 'Success' (Green color)
                         addNotificationItem("New Contribution", n.getMessage(), n.getTime(), true);
                     }
                 }
@@ -78,7 +74,6 @@ public class NotificationsController implements Initializable {
 
     @FXML
     private void handleClearAll(ActionEvent event) {
-        // 1. Run in background thread
         new Thread(() -> {
             try {
                 TestClient client = App.getClient();
@@ -86,14 +81,11 @@ public class NotificationsController implements Initializable {
                 
                 int myId = client.getUser().getId();
                 
-                // 2. Clear previous response
                 client.currentresponse = null;
 
-                // 3. Send Request
                 Request req = new Request("CLEAR_ALL_NOTIFICATIONS", myId);
                 client.send(req);
                 
-                // 4. Smart Wait
                 int timeout = 20;
                 while(client.getCurrentresponse() == null && timeout > 0) {
                     Thread.sleep(100);
@@ -102,10 +94,8 @@ public class NotificationsController implements Initializable {
                 
                 Response res = client.getCurrentresponse();
                 
-                // 5. Update UI
                 javafx.application.Platform.runLater(() -> {
                     if (res != null && res.isSuccess()) {
-                        // Clear the visual list only after DB success
                         notificationList.getChildren().clear();
                         System.out.println("Notifications deleted from DB.");
                     } else {
